@@ -1,0 +1,53 @@
+<canvas id='canvas' width='600' height='400'></canvas>
+<script>
+/************************Data************************/
+mouse_is_held = false; //mouse status
+mouse_x = -1; //mouse x position
+mouse_y = -1; //mouse y position
+
+background_color = "teal"; //background color
+draw_color = "white" //draw color
+
+/*******************Initialization*******************/
+canvas = document.getElementById('canvas'); //get the canvas
+canvas_context = canvas.getContext('2d'); //set context to 2d
+
+canvas_context.fillStyle = background_color; //set background color
+canvas_context.fillRect(0,0,canvas.width,canvas.height); //fill background
+canvas_context.fillStyle = draw_color; //set draw color
+
+/**********************Listeners*********************/
+//triggered when mouse clicks down
+mouse_down_listener = function(){
+  mouse_is_held = true; //set mouse is held to true
+}
+window.addEventListener('mousedown',mouse_down_listener);
+
+//triggered when mouse clicks up
+mouse_up_listener = function(){
+  mouse_is_held = false; //set mouse is held to false
+}
+window.addEventListener('mouseup',mouse_up_listener);
+
+//get new mouse position when mouse moves
+mouse_position_listener = function(e){
+  mouse_x = e.clientX; //get mouse x position
+  mouse_y = e.clientY; //get mouse y position
+}
+window.addEventListener('mousemove',mouse_position_listener);
+
+//clear the canvas when user double clicks
+//set background color
+//color background
+//set draw color
+
+/*****************Updates each frame*****************/
+function draw() {
+  //checks if the mouse is being held down
+  if(mouse_is_held == true) {
+    canvas_context.fillRect(mouse_x,mouse_y,10,10); //draw where the mouse is
+  }
+}
+
+setInterval(draw,1000/100); //update each frame
+</script>

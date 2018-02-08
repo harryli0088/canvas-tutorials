@@ -1,0 +1,40 @@
+<canvas id='canvas' width='600' height='400'></canvas>
+<script>
+/************************Data************************/
+mouse_is_held = false; //mouse status
+mouse_x = -1; //mouse x position
+mouse_y = -1; //mouse y position
+
+background_color = "teal"; //background color
+draw_color = "white" //draw color
+
+/*******************Initialization*******************/
+canvas = document.getElementById('canvas'); //get the canvas
+canvas_context = canvas.getContext('2d'); //set context to 2d
+
+canvas_context.fillStyle = background_color; //set background color
+canvas_context.fillRect(0,0,canvas.width,canvas.height); //fill background
+canvas_context.fillStyle = draw_color; //set draw color
+
+/**********************Listeners*********************/
+//triggered when mouse clicks down
+  //set mouse is held to true
+
+//triggered when mouse clicks up
+  //set mouse is held to false
+
+//get new mouse position when mouse moves
+  //get mouse x position
+  //get mouse y position
+
+//clear the canvas when user double clicks
+  //set background color
+  //color background
+  //set draw color
+
+/*****************Updates each frame*****************/
+  //checks if the mouse is being held down
+    //draw where the mouse is
+
+//update each frame
+</script>
