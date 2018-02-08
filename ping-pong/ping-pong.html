@@ -1,0 +1,87 @@
+<canvas id='canvas' width='600' height='400'></canvas>
+<script>
+
+/************************Data************************/
+//player rectangles
+player_x = 40; //paddle vertical starting position
+rect_width = 100; //paddle thickness
+rect_height = 10; //paddle height
+
+//ball
+ball_x = ball_y = canvas.width/2; //initial position
+ball_x_vel = 10;
+ball_y_vel = -5; //initial velocity
+ball_y_acc = .3;
+bd = 6; //size
+
+//score
+score = 0;
+
+/*******************Initialization*******************/
+//canvas
+canvas = document.getElementById('canvas'); //get the canvas
+canvas_context = canvas.getContext('2d');
+canvas_context.font = "30px Arial"; //font size and type
+setInterval(update,1000/50); //update each frame
+
+//mouse listener
+listener =function(e){
+  player_x = e.clientX - rect_width/2;
+}
+window.addEventListener('mousemove',listener);
+
+/***********************Reset************************/
+function reset() {
+  ball_x = canvas.width/2; //reset ball x position to middle of screen
+  ball_y = canvas.height/2; //reset ball y position to middle of screen
+  ball_y_vel = 0; //reset ball velocity
+}
+
+/*****************Updates each frame*****************/
+function update() {
+  /***update ball position based on previous velocity**/
+  ball_x += ball_x_vel; //update ball x position
+  ball_y += ball_y_vel; //update ball y position
+  ball_y_vel += ball_y_acc; //update ball y velocity
+
+  /***********Vertical and horizontal checks***********/
+  //check if the ball is horizontally out of the screen
+  if((ball_x<0 && ball_x_vel<0) || (ball_x>canvas.width && ball_x_vel>0)) {
+    ball_x_vel = -ball_x_vel; //reverse ball y velocity
+  }
+
+  //if the ball hits the buttom of the screen
+  if(ball_y > canvas.height) {
+    //if the player paddle is there, bounce the ball back up
+    if(ball_x>player_x-rect_width && ball_x<player_x+rect_width) {
+      ball_y_vel = -ball_y_vel; //reverse ball y velocity
+      score++;
+    }
+    //otherwise, player has lost
+    else {
+      score = 0; //reset score
+      reset(); //reset ball
+    }
+  }
+
+  //if ball hits top of screen
+  if(ball_y<0 && ball_y_vel<0) {
+    ball_y_vel = -ball_y_vel; //reverse ball y velocity
+  }
+
+  /******************Draw each frame*******************/
+  //background
+  canvas_context.fillStyle='teal'; //set color
+  canvas_context.fillRect(0,0,canvas.width,canvas.height); //color background
+
+  //paddles
+  canvas_context.fillStyle='white'; //set color
+  canvas_context.fillRect(player_x-rect_width/2,canvas.height-rect_height,rect_width,rect_height); //player paddle
+
+  //ball
+  canvas_context.fillRect(ball_x-bd/2,ball_y-bd/2,bd,bd);
+
+  //score
+  canvas_context.fillText(score,100,100); //player score
+}
+</script>

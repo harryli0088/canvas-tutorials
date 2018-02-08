@@ -1,0 +1,109 @@
+<canvas id='canvas' width='600' height='400'></canvas>
+<script>
+
+/************************Data************************/
+//player and AI rectangles
+player_y = ai_y = 40; //paddle vertical starting position
+rect_thickness = 10; //paddle thickness
+rect_height = 100; //paddle height
+ai_speed = 2; //AI speed
+
+//ball
+ball_x = ball_y = 50; //initial position
+ball_x_vel = ball_y_vel = 4; //initial velocity
+ball_diameter = 6; //size
+
+//scores
+score_ai = score_player = 0;
+
+/*******************Initialization*******************/
+//canvas
+canvas = document.getElementById('canvas'); //get the canvas
+canvas_context = canvas.getContext('2d');
+canvas_context.font = '30px Arial'; //font size and type
+interval = setInterval(update,1000/50); //update each frame
+
+//mouse listener
+listener =function(e){
+  player_y = e.clientY - rect_height/2;
+}
+window.addEventListener('mousemove',listener);
+
+/***********************Reset************************/
+function reset() {
+  ball_x = canvas.width/2; //reset ball x position to middle of screen
+  ball_y = canvas.height/2; //reset ball y position to middle of screen
+  ball_x_vel = ball_y_vel = 4; //reset ball velocity
+}
+
+/*****************Updates each frame*****************/
+function update() {
+  /***update ball position based on previous velocity**/
+  ball_x += ball_x_vel; //update ball x position
+  ball_y += ball_y_vel; //update ball y position
+
+  /***********Vertical and horizontal checks***********/
+
+  //check if the ball is vertically out of the screen
+  if(ball_y<0 || ball_y>canvas.height) {
+    ball_y_vel = -ball_y_vel; //reverse ball y velocity
+  }
+
+  //if the ball hits the player's side of the screen
+  if(ball_x<0) {
+    //if the player paddle is there, bounce the ball back
+    if(ball_y>player_y && ball_y<player_y+rect_height) {
+      ball_x_vel = -ball_x_vel; //reverse ball x velocity
+      d_y = ball_y - (player_y+rect_height/2); //change ball y velocity depending on the middle of the paddle
+      ball_y_vel = d_y*.3; //dont make it too fast
+    }
+    //otherwise, the AI has scored
+    else {
+      score_ai++; //increment AI score
+      reset(); //reset
+    }
+  }
+
+  //if the ball hits the AI side of the screen
+  if(ball_x>canvas.width) {
+    //if the AI paddle is there, bounce the ball back
+    if(ball_y>ai_y && ball_y<ai_y+rect_height) {
+      ball_x_vel = -ball_x_vel; //reverse ball x velocity
+      d_y = ball_y - (ai_y+rect_height/2); //change ball y velocity depending on the middle of the paddle
+      ball_y_vel = d_y*.3; //don't make it too fast
+    }
+    //otherwise player has scored
+    else {
+      score_player++; //increment player score
+      reset(); //reset
+    }
+  }
+
+  /*******AI tries to match y position of ball*********/
+  //if the AI paddle is below the ball
+  if(ai_y+rect_height/2<ball_y) {
+    ai_y += ai_speed;
+  }
+  //otherwise move down
+  else {
+    ai_y -= ai_speed;
+  }
+
+  /******************Draw each frame*******************/
+  //background
+  canvas_context.fillStyle='teal'; //set color
+  canvas_context.fillRect(0,0,canvas.width,canvas.height); //color background
+
+  //paddles
+  canvas_context.fillStyle='white'; //set color
+  canvas_context.fillRect(0,player_y,rect_thickness,rect_height); //player paddle
+  canvas_context.fillRect(canvas.width-rect_thickness,ai_y,rect_thickness,rect_height); //AI paddle
+
+  //ball
+  canvas_context.fillRect(ball_x-ball_diameter/2,ball_y-ball_diameter/2,ball_diameter,ball_diameter);
+
+  //score
+  canvas_context.fillText(score_player,100,100); //player score
+  canvas_context.fillText(score_ai,canvas.width-100,100); //AI score
+}
+</script>

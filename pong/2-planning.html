@@ -1,0 +1,90 @@
+<canvas id='canvas' width='600' height='400'></canvas>
+<script>
+
+/************************Data************************/
+//player and AI rectangles
+//paddle vertical starting position
+//paddle thickness
+//paddle height
+//AI speed
+
+//ball
+//initial position
+//initial velocity
+//size
+
+//scores
+
+/*******************Initialization*******************/
+//canvas
+canvas = document.getElementById('canvas'); //get the canvas
+canvas_context = canvas.getContext('2d');
+canvas_context.font = "30px Arial"; //font size and type
+//update each frame
+
+canvas_context.fillStyle='teal'; //set color
+canvas_context.fillRect(0,0,canvas.width,canvas.height); //color background
+
+//mouse listener
+
+/***********************Reset************************/
+function reset() {
+  //reset ball x position to middle of screen
+  //reset ball y position to middle of screen
+  //reset ball velocity
+}
+
+/*****************Updates each frame*****************/
+function update() {
+  /***update ball position based on previous velocity**/
+  //update ball x position
+  //update ball y position
+
+  /***********Vertical and horizontal checks***********/
+
+  //check if the ball is vertically out of the screen
+  //reverse ball y velocity
+
+
+  //if the ball hits the player's side of the screen
+  //if the player paddle is there, bounce the ball back
+  //reverse ball x velocity
+  //change ball y velocity
+
+  //otherwise, the AI has scored
+  //increment AI score
+  //reset
+
+
+  //if the ball hits the AI side of the screen
+  //if the AI paddle is there, bounce the ball back
+  //reverse ball x velocity
+  //change ball y velocity
+
+  //otherwise player has scored
+  //increment player score
+  //reset
+
+
+  /*******AI tries to match y position of ball*********/
+  //if the AI paddle is below the ball
+  //otherwise move down
+
+
+  /******************Draw each frame*******************/
+  //background
+  //set color
+  //color background
+
+  //paddles
+  //set color
+  //player paddle
+  //AI paddle
+
+  //ball
+
+  //score
+  //player score
+  //AI score
+}
+</script>
