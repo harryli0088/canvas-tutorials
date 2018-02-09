@@ -47,7 +47,7 @@ clear = function(e){
 window.addEventListener('keypress',clear);
 
 /*****************Updates each frame*****************/
-function draw() {
+draw = function() {
   //checks if the mouse is being held down
   if(mouse_is_held == true) {
     canvas_context.fillRect(mouse_x,mouse_y,10,10); //draw where the mouse is
