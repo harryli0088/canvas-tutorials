@@ -18,20 +18,20 @@ canvas_context.fillStyle = draw_color; //set draw color
 
 /**********************Listeners*********************/
 //triggered when mouse clicks down
-mouse_down_listener = function(){
+mouse_down = function(){
   mouse_is_held = true; //set mouse is held to true
 }
-window.addEventListener('mousedown',mouse_down_listener);
+window.addEventListener('mousedown',mouse_down);
 
 //triggered when mouse clicks up
 //set mouse is held to false
 
 //get new mouse position when mouse moves
-mouse_position_listener = function(e){
+mouse_position = function(e){
   mouse_x = e.clientX; //get mouse x position
   mouse_y = e.clientY; //get mouse y position
 }
-window.addEventListener('mousemove',mouse_position_listener);
+window.addEventListener('mousemove',mouse_position);
 
 //clear the canvas when user double clicks
 //set background color

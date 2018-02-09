@@ -18,31 +18,33 @@ canvas_context.fillStyle = draw_color; //set draw color
 
 /**********************Listeners*********************/
 //triggered when mouse clicks down
-mouse_down_listener = function(){
+mouse_down = function(){
   mouse_is_held = true; //set mouse is held to true
 }
-window.addEventListener('mousedown',mouse_down_listener);
+window.addEventListener('mousedown',mouse_down);
 
 //triggered when mouse clicks up
-mouse_up_listener = function(){
+mouse_up = function(){
   mouse_is_held = false; //set mouse is held to false
 }
-window.addEventListener('mouseup',mouse_up_listener);
+window.addEventListener('mouseup',mouse_up);
 
 //get new mouse position when mouse moves
-mouse_position_listener = function(e){
+mouse_position = function(e){
   mouse_x = e.clientX; //get mouse x position
   mouse_y = e.clientY; //get mouse y position
 }
-window.addEventListener('mousemove',mouse_position_listener);
+window.addEventListener('mousemove',mouse_position);
 
-//clear the canvas when user double clicks
-double_click_listener = function(e){
-  canvas_context.fillStyle= background_color; //set background color
-  canvas_context.fillRect(0,0,canvas.width,canvas.height); //color background
-  canvas_context.fillStyle = draw_color; //set draw color
+//clear the canvas when user presses "c" key
+clear = function(e){
+  if(e.keyCode==67 || e.keyCode==99) {
+    canvas_context.fillStyle= background_color; //set background color
+    canvas_context.fillRect(0,0,canvas.width,canvas.height); //color background
+    canvas_context.fillStyle = draw_color; //set draw color
+  }
 }
-window.addEventListener('dblclick',double_click_listener);
+window.addEventListener('keypress',clear);
 
 /*****************Updates each frame*****************/
 function draw() {
@@ -52,5 +54,5 @@ function draw() {
   }
 }
 
-setInterval(draw,1000/100); //update each frame
+interval = setInterval(draw,1000/100); //update each frame
 </script>
